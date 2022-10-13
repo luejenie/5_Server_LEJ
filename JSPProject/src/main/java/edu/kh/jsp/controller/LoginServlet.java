@@ -84,8 +84,8 @@ public class LoginServlet extends HttpServlet{
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/loginResult.jsp");
 		
 		
-		//_ req : 요청 관련 정보 데이터(속성, 값)  -> result 값 넣기
-		//_ resp : 응답하는 방법(기능 위주)
+		//_ req : 요청 관련 정보 데이터(속성, 값) / 클라이언트 정보  -> result 값 넣기
+		//_ resp : 응답하는 방법(기능 위주) / 스트림, 쿠키
 		
 		// req.setAttribute(String key, Object value)
 		// Attribute : 속성 == 데이터(값)

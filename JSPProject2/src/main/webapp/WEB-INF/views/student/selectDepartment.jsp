@@ -9,7 +9,7 @@
     <title>학과명 조회</title>
 
     <style>
-        c:when { color :red; }
+        
     
     </style>
 

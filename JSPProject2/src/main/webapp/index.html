@@ -31,6 +31,31 @@
 				** 형제 요소는 이름만 부르면 접근할 수 있다!
             -->
         </li>
+
+        <li>
+                    <!--_ 상대경로: index.html과 형제관계라서 이름만 부르면 됨. -->
+            <a href="jstl">3. JSTL</a>
+        </li>
+
+
+
+        <li>
+            <!-- 
+                현재 페이지 주소 : /JSPProject2/index.html
+                목표 페이지 주소 : /JSPProject2/student/selectAll
+            -->
+            <a href="student/selectAll">4. 학생 전체 조회</a>
+        </li>
+        
+		<li>
+            <!-- 요청 -> Servlet -> service -> DAO -> DB -->
+            <form action="student/selectDepartment">
+                학과명 : <input type="text" name="inputDept">
+                <button>검색</button>
+            </form>
+        </li>
+		        
+        
     </ul>
 
 </body>

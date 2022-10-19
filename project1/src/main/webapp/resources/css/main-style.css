@@ -338,6 +338,60 @@ header { position : realtive;  /* 상대적 기준 제공(헤더 안에서만 �
     font-weight: bold;
 }
 
+/* 메뉴 on/off 체크박스 */
+#header-menu-toggle{
+    display: none;
+}
+
+
+/* 오른쪽 상단 닉네임 */
+/* label 태그 중 for 속성 값이 header-menu-toggle */
+label[for='header-menu-toggle']{
+    cursor:pointer
+}
+
+label[for='header-menu-toggle']:hover{
+    text-decoration: underline;
+}
+
+
+/* 체크박스 다음 div */
+#header-menu-toggle + div{ display:none; }
+
+/* 체크박스가 체크된 경우 다음 div */
+#header-menu-toggle:checked + div{display: block;}
+
+/* 닉네임 클릭 시 보이는 메뉴 */
+#header-menu{
+    position: absolute;
+    z-index: 500px;
+    width: 100px;
+    height: 80px;
+    right: 0;
+    margin-top: 5px;
+    border: 1px solid black;
+}
+
+
+#header-menu > a {
+    display: flex;  /* _내부는 정렬 외부는 block처럼 */
+    height: 50%;
+    justify-content: center;
+    align-items: center;
+}
+
+#header-menu > a:first-child{
+    border-bottom: 1px solid #ccc;
+}
+
+#header-menu > a:hover{
+    background-color: #455ba890;  /* 뒤에 90 투명도 */
+}
+
+
+
+
+
 
 /* ********************************************************** */
 

@@ -272,6 +272,15 @@ AND MEMBER_EMAIL = 'user01@kh.or.kr'
 AND MEMBER_PW = 'pass01!';
 
 
+-- 회원 정보 수정
+UPDATE "MEMBER" SET
+MEMBER_NICKNAME = '변경된닉네임',
+MEMBER_TEL = '01012345611',
+MEMBER_ADDRESS = '12345,,서울,,어딘가'
+WHERE MEMBER_NO = 4 ;  
+					--> 로그인한 회원의 번호
+
+
 
 
 

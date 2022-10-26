@@ -297,7 +297,7 @@ WHERE MEMBER_DEL_FL = 'N'
 AND MEMBER_EMAIL = 'user02@email.com';
 
 
-
+SELECT * FROM "MEMBER";
 
 
 

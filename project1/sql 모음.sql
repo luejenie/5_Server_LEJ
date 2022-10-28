@@ -299,7 +299,9 @@ AND MEMBER_EMAIL = 'user02@email.com';
 
 SELECT * FROM "MEMBER";
 
+COMMIT;
 
+SELECT * FROM "MEMBER";
 
 
 

@@ -613,34 +613,121 @@ WHERE BOARD_NO = 2000;
 
 
 
+-- 조회수 증가
+UPDATE "BOARD" 
+SET READ_COUNT = READ_COUNT +1
+WHERE BOARD_NO = 2000;
+
+ROLLBACK;
 
 
 
+-- 게시글 상세조회(좋아요 수 추가) _상관쿼리 사용
+SELECT BOARD_NO, BOARD_TITLE, BOARD_CONTENT, READ_COUNT,
+	TO_CHAR(B_CREATE_DATE, 'YYYY"년" MM"월" DD"일 HH24:MI:SS') B_CREATE_DATE,
+	TO_CHAR(B_UPDATE_DATE, 'YYYY"년" MM"월" DD"일 HH24:MI:SS') B_UPDATE_DATE,
+	MEMBER_NO, MEMBER_NICKNAME, PROFILE_IMG,
+	(SELECT COUNT(*) FROM BOARD_LIKE L 
+	  WHERE L.BOARD_NO = B.BOARD_NO)LIKE_COUNT
+FROM BOARD B
+JOIN MEMBER USING(MEMBER_NO)
+WHERE BOARD_NO = 2000
+AND BOARD_DEL_FL = 'N'
+
+
+SELECT * FROM BOARD_LIKE;
+
+
+SELECT * FROM BOARD
+WHERE BOARD_NO = '1977';
 
 
 
+-- 게시글 삽입
+INSERT INTO BOARD
+      VALUES(SEQ_BOARD_NO.NEXTVAL,
+             #{boardTitle},
+             #{boardContent},
+	         DEFAULT, DEFAULT, DEFAULT, DEFAULT, 
+	         #{memberNo}, 
+           	 #{boardCode})
+
+
+SELECT * FROM BOARD_TYPE;
 
 
 
+-- 게시글 첨부 이미지 삽입(여러행 동시 삽입)
+INSERT INTO BOARD_IMG
+VALUES(SEQ_IMG_NO.NEXTVAL, '/resources/images/board/',
+'20221116105843_00004.gif', '4.gif', 0 , 1000);
+INSERT INTO BOARD_IMG
+VALUES(SEQ_IMG_NO.NEXTVAL, '/resources/images/board/',
+'20221116105843_00004.gif', '4.gif', 1 , 1000);
+INSERT INTO BOARD_IMG
+VALUES(SEQ_IMG_NO.NEXTVAL, '/resources/images/board/',
+'20221116105843_00004.gif', '4.gif', 2 , 1000);
+
+-- INSERT ALL : 한번에 여러 행 삽입(단, 시퀀스 사용 불가)
+-- 서브쿼리를 이용한 INSERT + UNION ALL
+INSERT INTO BOARD_IMG
+SELECT SEQ_IMG_NO.NEXTVAL IMG_NO, A.* FROM
+(SELECT '경로' IMG_PATH,
+	   '변경된 파일' IMG_RENAME,
+	   '원본파일명' IMG_ORIGINAL,
+	   1 IMG_ORDER,
+	   1000 BOARD_NO
+FROM DUAL
+UNION ALL
+SELECT '경로2' IMG_PATH,
+	   '변경된 파일2' IMG_RENAME,
+	   '원본파일명2' IMG_ORIGINAL,
+	   2 IMG_ORDER,
+	   1000 BOARD_NO
+FROM DUAL) A
+
+--// 시퀀스 번호가 각각 있었을 때는 오류가 남
+-- 두개를 UNION ALL 로 묶고 조회하면 됨.
+	  
+SELECT * FROM BOARD_IMG; 
+
+ROLLBACK;
+
+
+SELECT * FROM BOARD_IMG
+WHERE BOARD_NO = 2010;
+
+
+-- 이미지 삭제
+DELETE FROM BOARD_IMG
+WHERE BOARD_NO = 2010
+AND IMG_ORDER IN (1,2,4);
+
+ROLLBACK;
+
+
+-- 게시글 수정(제목, 내용)	
+UPDATE BOARD SET
+BOARD_TITLE = #{boardTitle},
+BOARD_CONTENT = #{boardContent)
+WHERE BOARD_NO = #{boardNO)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- 검색 조건이 일치하는 게시글 수 조회
+SELECT COUNT(*) 
+FROM "BOARD" 
+JOIN "MEMBER" USING(MEMBER_NO)
+WHERE BOARD_CODE = 1
+AND BOARD_DEL_FL = 'N'
+-- 제목 검색
+--AND BOARD_TITLE LIKE '%10%'
+-- 내용 검색
+--AND BOARD_CONTENT LIKE '%10%'
+-- 제목+내용 검색
+--
+-- 작성자 닉네임
+AND MEMBER_NICKNAME LIKE '%유저%'
 
 
 
